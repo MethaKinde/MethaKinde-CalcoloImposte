@@ -41,9 +41,9 @@ namespace CalcoloImposte
         public string CodiceFiscale
         {
             get { return _codiceFiscale; }
-            set 
+            set
             {
-                if(value.Length == 16)
+                if (value.Length == 16)
                 {
                     _codiceFiscale = value;
                 }
@@ -57,7 +57,7 @@ namespace CalcoloImposte
         public char Sesso
         {
             get { return _sesso; }
-            set 
+            set
             {
                 if (value == 'M' || value == 'F')
                 {
@@ -73,17 +73,27 @@ namespace CalcoloImposte
         public string ComuneResidenza
         {
             get { return _comuneResidenza; }
-            set { _comuneResidenza = value;}
+            set { _comuneResidenza = value; }
         }
 
         public double RedditoAnnuale
         {
             get { return _redditoAnnuale; }
-            set {  _redditoAnnuale = value; }
+            set 
+            {
+                if (value < 0)
+                {
+                    _redditoAnnuale = 0;
+                }
+                else
+                {
+                    _redditoAnnuale = value;
+                }
+            }
         }
 
 
-        public Contribuente(string nome, string cognome, string codiceFiscale,  char sesso, string comuneResidenza, double redditoAnnuale)
+        public Contribuente(string nome, string cognome, string codiceFiscale, char sesso, string comuneResidenza, double redditoAnnuale)
         {
             Nome = nome;
             Cognome = cognome;
@@ -104,6 +114,34 @@ namespace CalcoloImposte
             RedditoAnnuale = redditoAnnuale;
         }
 
+        public double CalcoloImposta()
+        {
+            double imposta = 0;
 
+            switch (RedditoAnnuale)
+            {
+                case double reddito when reddito <= 15000:
+                    imposta = reddito * 0.23;
+                    break;
+
+                case double reddito when reddito <= 28000:
+                    imposta = 3450 + (reddito - 15000) * 0.27;
+                    break;
+
+                case double reddito when reddito <= 55000:
+                    imposta = 6960 + (reddito - 28000) * 0.38;
+                    break;
+
+                case double reddito when reddito <= 75000:
+                    imposta = 17220 + (reddito - 55000) * 0.41;
+                    break;
+
+                default:
+                    imposta = 25420 + (RedditoAnnuale - 75000) * 0.43;
+                    break;
+            }
+
+            return imposta;
+        }
     }
 }
