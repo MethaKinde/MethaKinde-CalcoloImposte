@@ -6,6 +6,8 @@ namespace CalcoloImposte
     {
         static void Main(string[] args)
         {
+            Console.WriteLine("Benvenuto nel calcolo dell'imposta");
+
             string nome, cognome, dd, mm, yyyy, codiceFiscale, comuneResidenza;
             char sesso;
 
@@ -59,6 +61,7 @@ namespace CalcoloImposte
                 comuneResidenza = Console.ReadLine();
             } while (string.IsNullOrWhiteSpace(comuneResidenza));
 
+
             Console.Write("Inserisci il tuo reddito annuale: ");
             double redditoAnnuale = double.Parse(Console.ReadLine());
 
@@ -68,9 +71,9 @@ namespace CalcoloImposte
 
 
             Console.WriteLine("CALCOLO DELL'IMPOSTA DA VERSARE");
-            Console.WriteLine($"Contribuente: {nome} {cognome},");
+            Console.WriteLine($"Contribuente: {char.ToUpper(nome[0]) + nome.Substring(1)} {char.ToUpper(cognome[0]) + cognome.Substring(1)},");
             Console.WriteLine($"nato il {dataNascita} ({sesso}),");
-            Console.WriteLine($"residente a {comuneResidenza}");
+            Console.WriteLine($"residente a {char.ToUpper(comuneResidenza[0]) + comuneResidenza.Substring(1)}");
             Console.WriteLine($"codice fiscale: {codiceFiscale}");
             Console.OutputEncoding = System.Text.Encoding.UTF8;
             Console.WriteLine($"reddito dichiarato: € {redditoAnnuale:N2}");
