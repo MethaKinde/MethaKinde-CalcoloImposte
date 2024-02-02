@@ -6,7 +6,40 @@ namespace CalcoloImposte
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello, World!");
+            Console.WriteLine("Benvenuto nel calcolo dell'imposta");
+            Console.Write("Inserisci il tuo nome: ");
+            string nome = Console.ReadLine();
+            Console.Write("Inserisci il tuo cognome: ");
+            string cognome = Console.ReadLine();
+            Console.Write("Inserisci giorno nascita: ");
+            string dd = Console.ReadLine();
+            Console.Write("Inserisci mese nascita: ");
+            string mm = Console.ReadLine();
+            Console.Write("Inserisci anno nascita: ");
+            string yyyy = Console.ReadLine();
+            string dataNascita = $"{dd}/{mm}/{yyyy}";
+            Console.Write("Inserisci il tuo codice fiscale (16 caratteri): ");
+            string codiceFiscale = Console.ReadLine().ToUpper();
+            Console.Write("Inserisci il tuo sesso ('M' o 'F'): ");
+            char sesso = char.Parse(Console.ReadLine().ToUpper());
+            Console.Write("Inserisci il tuo comune di residenza: ");
+            string comuneResidenza = Console.ReadLine();
+            Console.Write("Inserisci il tuo reddito annuale: ");
+            double redditoAnnuale = double.Parse(Console.ReadLine());
+
+            Contribuente contribuente = new Contribuente(nome, cognome, dataNascita, codiceFiscale, sesso, comuneResidenza, redditoAnnuale);
+            double impostaDaVersare = contribuente.CalcoloImposta();
+            Console.Clear();
+
+
+            Console.WriteLine("CALCOLO DELL'IMPOSTA DA VERSARE");
+            Console.WriteLine($"Contribuente: {nome} {cognome},");
+            Console.WriteLine($"nato il {dataNascita} ({sesso}),");
+            Console.WriteLine($"residente a {comuneResidenza}");
+            Console.WriteLine($"codice fiscale: {codiceFiscale}");
+            Console.OutputEncoding = System.Text.Encoding.UTF8;
+            Console.WriteLine($"reddito dichiarato: € {redditoAnnuale}");
+            Console.WriteLine($"IMPOSTA DA VERSARE: € {impostaDaVersare}");
         }
     }
 
@@ -14,7 +47,7 @@ namespace CalcoloImposte
     {
         private string _nome;
         private string _cognome;
-        private DateTime _dataNascita;
+        private string _dataNascita;
         private string _codiceFiscale;
         private char _sesso;
         private string _comuneResidenza;
@@ -32,7 +65,7 @@ namespace CalcoloImposte
             set { _cognome = value; }
         }
 
-        public DateTime DataNascita
+        public string DataNascita
         {
             get { return _dataNascita; }
             set { _dataNascita = value; }
@@ -103,7 +136,7 @@ namespace CalcoloImposte
             RedditoAnnuale = redditoAnnuale;
         }
 
-        public Contribuente(string nome, string cognome, DateTime dataNascita, string codiceFiscale, char sesso, string comuneResidenza, double redditoAnnuale)
+        public Contribuente(string nome, string cognome, string dataNascita, string codiceFiscale, char sesso, string comuneResidenza, double redditoAnnuale)
         {
             Nome = nome;
             Cognome = cognome;
